@@ -1,0 +1,24 @@
+.wrapper {
+  height: 100%;
+  max-width: 100%;
+}
+
+.subcategories {
+  padding: 50px 0 0 0;
+  background-color: #747e8c;
+  color: #fff;
+}
+
+.lines {
+  display: flex;
+  align-items: center;
+}
+
+.lines a {
+  border: 1px solid #000;
+  padding: 5px 10px;
+  border-radius: 0 30px 30px 0px;
+  color: #000;
+  font-weight: 200;
+  margin-right: 20px;
+}

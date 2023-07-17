@@ -1,0 +1,32 @@
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.search button {
+  background: rgb(54, 54, 138);
+  border: 1px solid #726f6f;
+  width: 30px;
+  color: white;
+}
+
+.search input {
+  background: #373138;
+  border: 1px solid #726f6f;
+  height: 35px;
+  padding: 5px 10px;
+}
+
+.search button {
+  height: 35px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.search button img {
+  display: inline-block;
+  max-width: 100%;
+  height: 100%;
+  object-fit: auto;
+  padding: 10px;
+}

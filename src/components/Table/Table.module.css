@@ -1,0 +1,17 @@
+.table {
+  padding: 50px;
+}
+
+.table h1 {
+  display: inline-block;
+  font-size: 30px;
+  border-radius: 5px;
+  padding: 2px 15px;
+}
+
+.cardWrapper {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
