@@ -16,7 +16,7 @@ interface ProductCategory {
   parent: {
     id: number;
     name: string;
-  };
+  } | null;
 }
 
 interface Product {
@@ -53,7 +53,7 @@ class AddProduct {
       );
 
       this.response = response.data;
-      this.error = null; 
+      this.error = null;
       this.loading = false;
     } catch (error) {
       if (axios.isAxiosError(error)) {

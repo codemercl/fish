@@ -8,7 +8,7 @@ interface ParentCategory {
 
 interface Category {
   name: string;
-  parent: ParentCategory;
+  parent: ParentCategory | null;
 }
 
 class AddCategory {

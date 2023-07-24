@@ -47,7 +47,7 @@ interface ProductCategory {
   parent: {
     id: number;
     name: string;
-  };
+  } | null;
 }
 
 interface Product {
@@ -107,8 +107,6 @@ export const Admin = observer(() => {
     setSubcategory(event.target.value as string);
   };
 
-  console.log(category);
-
   const handleSubmit = async () => {
     const productPayload: Product = {
       title: title,
@@ -128,13 +126,14 @@ export const Admin = observer(() => {
       category: {
         id: typeof category === "number" ? category : parseInt(category),
         name: "Спининги",
-        parent: {
+        parent: subcategory ? 
+        {
           id:
             typeof subcategory === "number"
               ? subcategory
               : parseInt(subcategory),
           name: "Удочки",
-        },
+        } : null,
       },
       in_stock: true,
       price_retail: parseFloat(priceRetail),
@@ -149,11 +148,13 @@ export const Admin = observer(() => {
   const handleAddCategory = () => {
     const newCategory = {
       name: newSubcategory,
-      parent: {
-        name: category,
-        image_link:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjNeJHIY1RWOE5_xDehawyTaykkk6dN6f7Hg&usqp=CAU",
-      },
+      parent: category
+        ? {
+            name: category,
+            image_link:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjNeJHIY1RWOE5_xDehawyTaykkk6dN6f7Hg&usqp=CAU",
+          }
+        : null,
     };
 
     addCategoryInstance.sendCreateCategory(newCategory);
