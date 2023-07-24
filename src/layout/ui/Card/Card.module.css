@@ -49,15 +49,20 @@
   color: blueviolet;
 }
 
-.footerCard a {
+.footerCard h2 {
   font-size: 20px;
   color: rgb(62, 88, 182);
   margin-top: 20px;
+  cursor: pointer;
+}
+
+.footerCard h2:hover {
+  color: rgb(8, 17, 52);
 }
 
 .footerCard h4 {
   margin-top: 8px;
-  font-size: 18px;
+  font-size: 20px;
   color: grey;
   text-decoration: line-through;
 }

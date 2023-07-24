@@ -4,7 +4,7 @@
   border-top: 1px solid #ffffff3a;
 }
 
-.menu a {
+.menu .menuItem {
   text-decoration: none;
   color: rgb(223, 223, 28);
   font-size: 20px;
@@ -16,7 +16,7 @@
   padding: 35px 20px;
 }
 
-.menu a::after {
+.menu .menuItem::after {
   content: "";
   position: absolute;
   top: 0;
@@ -32,6 +32,6 @@
   display: none;
 }
 
-.menu a:hover::after {
+.menu .menuItem:hover::after {
   display: block;
 }

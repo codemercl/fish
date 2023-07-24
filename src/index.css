@@ -48,6 +48,16 @@ button {
   margin: 0;
 }
 
+li {
+  margin: 0;
+  padding: 9;
+}
+
+ul {
+  margin: 0;
+  padding: 9;
+}
+
 input {
   background: none;
   border: none;

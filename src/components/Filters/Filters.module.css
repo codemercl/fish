@@ -1,0 +1,28 @@
+.filters {
+  background: #747e8c;
+  padding-top: 120px;
+  position: absolute;
+  left: 120px;
+}
+
+.wrapper {
+  display: inline-block;
+  background-color: #fff;
+  padding: 20px;
+  border: 2px solid rgb(62, 88, 182);
+  min-width: 300px;
+}
+
+.sort h4 {
+  color: rgb(73, 73, 94);
+  margin-bottom: 20px;
+}
+
+.column {
+  margin-top: 20px;
+}
+
+.column h4 {
+  color: rgb(73, 73, 94);
+  margin-bottom: 10px;
+}

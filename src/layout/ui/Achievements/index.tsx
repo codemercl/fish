@@ -4,13 +4,14 @@ import Check from "../../../images/service/check.png";
 import Dollar from "../../../images/service/dollar.png";
 import Up from "../../../images/service/up.png";
 import { FC } from "react";
+import { Layout } from "../../../components";
 
 interface IAchievements {}
 
 export const Achievements: FC<IAchievements> = () => {
   return (
     <section className={styles.achievements}>
-      <div className={styles.container}>
+      <Layout>
         <div className={styles.achievementsWrapper}>
           <div className={styles.achievementsElement}>
             <img src={Bugs} alt="icons achievements" />
@@ -49,7 +50,7 @@ export const Achievements: FC<IAchievements> = () => {
             </p>
           </div>
         </div>
-      </div>
+      </Layout>
     </section>
   );
 };

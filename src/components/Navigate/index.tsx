@@ -6,7 +6,7 @@ export const Navigate = () => {
   return (
     <ul className={styles.menu}>
       {links.map((item) => (
-        <Link to={item?.path}>{item?.name}</Link>
+        <Link className={styles.menuItem} to={item?.path}>{item?.name}</Link>
       ))}
     </ul>
   );

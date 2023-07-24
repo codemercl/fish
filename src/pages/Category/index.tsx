@@ -6,7 +6,7 @@ import CategoryStore from "../../store/allCategory";
 import AllProduct from "../../store/allProducts";
 import { observer } from "mobx-react-lite";
 import { Header } from "../../layout";
-import { Categories, Table } from "../../components";
+import { Categories, Layout, Table } from "../../components";
 
 export const Category = observer(() => {
   const { categories, fetchCategories } = CategoryStore;
@@ -23,7 +23,7 @@ export const Category = observer(() => {
       <Categories />
 
       <section className={styles.settCategory}>
-        <div className={styles.container}>
+        <Layout>
           <div className={styles.settCategoryWrapper}>
             {categories.map((item, index) => (
               <div key={index} className={styles.settCategoryBlock}>
@@ -35,7 +35,9 @@ export const Category = observer(() => {
                 </h1>
                 {item?.sub_categories.map((subCategory, subIndex) => (
                   <p key={subIndex}>
-                    <Link to={`/catalog/${item?.category?.name}/${subCategory?.name}`}>
+                    <Link
+                      to={`/catalog/${item?.category?.name}/${subCategory?.name}`}
+                    >
                       {subCategory.name}
                     </Link>
                   </p>
@@ -43,7 +45,7 @@ export const Category = observer(() => {
               </div>
             ))}
           </div>
-        </div>
+        </Layout>
       </section>
 
       <Table short data={data} title="Знижки" colorTitle="yellow" />

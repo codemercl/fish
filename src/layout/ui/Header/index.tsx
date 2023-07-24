@@ -1,56 +1,25 @@
-import React, { FC } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import styles from "./Header.module.css";
 import Logo from "../../../images/logo/default-logo.png";
 import { Layout, Navigate } from "../../../components";
 import { Link } from "react-router-dom";
 import { account, contacts } from "./data";
 import { SearchField } from "../../../components/SearchField";
+import Shop from "../../../images/icon/cart-logo.png";
 
 interface IHeader {
   slider?: boolean;
+  openBasket?: (value: boolean) => void;
 }
 
-const settings = {
-  dots: false,
-  arrows: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  responsive: [
-    {
-      breakpoint: 768, // Mobile breakpoint
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        height: "50vh",
-      },
-    },
-    {
-      breakpoint: 1200, // Tablet breakpoint
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        height: "60vh",
-      },
-    },
-    {
-      breakpoint: 1600, // Large screen breakpoint
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        height: "70vh",
-      },
-    },
-  ],
-};
+export const Header: FC<IHeader> = ({ slider, openBasket }) => {
 
-export const Header: FC<IHeader> = ({ slider }) => {
+  const handleOpenBasket = () => {
+    if (openBasket) {
+      openBasket(true);
+    }
+  };
+
   return (
     <header className={`${styles.header} ${slider ? styles.sliderHeader : ""}`}>
       <Layout>
@@ -72,12 +41,16 @@ export const Header: FC<IHeader> = ({ slider }) => {
             </div>
 
             <div className={styles.account}>
+              <div onClick={handleOpenBasket}>
+                <img src={Shop} alt="shop" />
+              </div>
               {account.map((item, index) => (
                 <Link key={index} to={item?.path}>
                   <img src={item?.image} alt={item?.alt} />
                 </Link>
               ))}
             </div>
+
           </div>
         </div>
 
@@ -85,23 +58,13 @@ export const Header: FC<IHeader> = ({ slider }) => {
 
         {slider && (
           <div className={styles.sliderContainer}>
-            <Slider {...settings}>
-              <div className={styles.content}>
-                <h2>Великі знижки</h2>
-                <h1>Риболовля <br /> це завжди відпочинок</h1>
-                <p>Акції на оптову та роздрібнену продукцію</p>
-              </div>
-              <div className={styles.content}>
-                <h2>Великі знижки</h2>
-                <h1>Риболовля <br /> це завжди відпочинок</h1>
-                <p>Акції на оптову та роздрібнену продукцію</p>
-              </div>
-              <div className={styles.content}>
-                <h2>Великі знижки</h2>
-                <h1>Риболовля <br /> це завжди відпочинок</h1>
-                <p>Акції на оптову та роздрібнену продукцію</p>
-              </div>
-            </Slider>
+            <div className={styles.content}>
+              <h2>Великі знижки</h2>
+              <h1>
+                Риболовля <br /> це завжди відпочинок
+              </h1>
+              <p>Акції на оптову та роздрібнену продукцію</p>
+            </div>
           </div>
         )}
       </Layout>

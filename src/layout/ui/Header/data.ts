@@ -1,17 +1,10 @@
-import Account from "../../../images/icon/account-icon.png";
-import Shop from "../../../images/icon/shop-icon.png";
-
-import Phone from "../../../images/icon/phone-icon.png";
-import Mail from "../../../images/icon/mail-icon.png";
+import Account from "../../../images/icon/login_reg-logo.png";
+import Phone from "../../../images/icon/call.png";
+import Mail from "../../../images/icon/mail.png";
 
 export const account = [
   {
-    path: "/shop",
-    alt: "shop",
-    image: Shop,
-  },
-  {
-    path: "/account",
+    path: "/sign-in",
     alt: "personal",
     image: Account,
   },

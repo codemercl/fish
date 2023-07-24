@@ -10,9 +10,11 @@
   z-index: 1;
 }
 
-.window img {
+.window video {
   width: 100%;
   height: 70vh;
+
+  background: url(../../../images/video/background-fishing.mp4);
 
   position: absolute;
   top: 0;
