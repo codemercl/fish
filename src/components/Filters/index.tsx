@@ -8,13 +8,29 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 
-interface Filters {}
-
-export const Filters: FC<Filters> = () => {
+interface FiltersProps {
+  setCostFilter: (value: boolean) => void;
+  setRecencyFilter: (value: boolean) => void;
+  onChange: any;
+}
+//получить пропсы
+export const Filters: FC<FiltersProps> = ({setCostFilter, setRecencyFilter, onChange}) => {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
+  };
+  
+  const handlePriceSort = () => {
+    setCostFilter(true);
+    setRecencyFilter(false);
+    onChange(setCostFilter, setRecencyFilter);
+  };
+
+  const handleRecencySort = () => {
+    setCostFilter(false);
+    setRecencyFilter(true);
+    onChange(setCostFilter, setRecencyFilter);
   };
 
   const label = { inputProps: { "aria-label": "Checkbox defmo" } };
@@ -34,9 +50,9 @@ export const Filters: FC<Filters> = () => {
                 label="Age"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>За ціною</MenuItem>
-                <MenuItem value={20}>За чимось</MenuItem>
-                <MenuItem value={30}>За чимось ще</MenuItem>
+                {/* добавить onClick в который передать значение */}
+                <MenuItem value={10} onClick={handlePriceSort}>Від дешевих</MenuItem>
+                <MenuItem value={20} onClick={handleRecencySort}>Від нових</MenuItem>
               </Select>
             </FormControl>
           </Box>
