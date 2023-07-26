@@ -253,7 +253,7 @@ export const Admin = observer(() => {
         <Divider />
         <List>
           {["Вийти"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+            <ListItem key={index} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   <InboxIcon />

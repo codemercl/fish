@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styles from "./Filters.module.css";
-
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,32 +7,50 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 
+const label = { inputProps: { "aria-label": "Checkbox defmo" } };
+
 interface FiltersProps {
-  setCostFilter: (value: boolean) => void;
-  setRecencyFilter: (value: boolean) => void;
   onChange: any;
+  setSorting: (value: string) => void;
+  sorting: string;
+  isNew: boolean;
+  isSuperPrice: boolean;
+  isHit: boolean;
+  setNew: (value: boolean) => void;
+  setSuperPrice: (value: boolean) => void;
+  setHit: (value: boolean) => void;
 }
-//получить пропсы
-export const Filters: FC<FiltersProps> = ({setCostFilter, setRecencyFilter, onChange}) => {
-  const [age, setAge] = React.useState("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
-  
-  const handlePriceSort = () => {
-    setCostFilter(true);
-    setRecencyFilter(false);
-    onChange(setCostFilter, setRecencyFilter);
+export const Filters: FC<FiltersProps> = ({
+  onChange,
+  sorting,
+  setSorting,
+  isNew,
+  isSuperPrice,
+  isHit,
+  setNew,
+  setSuperPrice,
+  setHit
+}) => {
+
+  // обработчик клика сортировок, отвавливаем событие и передаём value элементов меню
+  const handleSortingChange = (event: SelectChangeEvent<string>) => {
+    setSorting(event.target.value);
+    onChange(event);
   };
 
-  const handleRecencySort = () => {
-    setCostFilter(false);
-    setRecencyFilter(true);
-    onChange(setCostFilter, setRecencyFilter);
+  // обработчики клика фильтраций, отвавливаем событие и передаём value элементов меню
+  const handleNewChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNew(event.target.checked);
   };
 
-  const label = { inputProps: { "aria-label": "Checkbox defmo" } };
+  const handleSuperPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSuperPrice(event.target.checked);
+  };
+
+  const handleHitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setHit(event.target.checked);
+  };
 
   return (
     <div className={styles.filters}>
@@ -46,13 +63,12 @@ export const Filters: FC<FiltersProps> = ({setCostFilter, setRecencyFilter, onCh
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
                 label="Age"
-                onChange={handleChange}
+                value={sorting}
+                onChange={handleSortingChange}
               >
-                {/* добавить onClick в который передать значение */}
-                <MenuItem value={10} onClick={handlePriceSort}>Від дешевих</MenuItem>
-                <MenuItem value={20} onClick={handleRecencySort}>Від нових</MenuItem>
+                <MenuItem value="cost"> Від дешевих</MenuItem>
+                <MenuItem value="new">Від нових</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -60,28 +76,25 @@ export const Filters: FC<FiltersProps> = ({setCostFilter, setRecencyFilter, onCh
         <div className={styles.column}>
           <h4>Відбір за ярликами</h4>
           <div className={styles.item}>
-            <Checkbox {...label} />
+            <Checkbox {...label} checked={isNew} onChange={handleNewChange} />
             <label>Новинки</label>
           </div>
           <div className={styles.item}>
-            <Checkbox {...label} />
+            <Checkbox
+              {...label}
+              checked={isSuperPrice}
+              onChange={handleSuperPriceChange}
+            />
             <label>Супер ціна</label>
           </div>
           <div className={styles.item}>
-            <Checkbox {...label} />
+            <Checkbox {...label} checked={isHit} onChange={handleHitChange} />
             <label>Хіт</label>
           </div>
         </div>
         <div className={styles.column}>
           <h4>Виробник</h4>
-          <div className={styles.item}>
-            <Checkbox {...label} />
-            <label>Azura</label>
-          </div>
-          <div className={styles.item}>
-            <Checkbox {...label} />
-            <label>Azura</label>
-          </div>
+          {/* остальные сортировки */}
         </div>
       </div>
     </div>

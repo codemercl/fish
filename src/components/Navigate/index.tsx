@@ -5,8 +5,10 @@ import { links } from "./data/links";
 export const Navigate = () => {
   return (
     <ul className={styles.menu}>
-      {links.map((item) => (
-        <Link className={styles.menuItem} to={item?.path}>{item?.name}</Link>
+      {links.map((item, index) => (
+        <Link className={styles.menuItem} to={item?.path} key={index}>
+          {item?.name}
+        </Link>
       ))}
     </ul>
   );
