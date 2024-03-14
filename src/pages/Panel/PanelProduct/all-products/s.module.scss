@@ -1,0 +1,46 @@
+.pagination {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    margin-bottom: 10px;
+
+    button {
+        margin-left: 10px;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px 20px;
+
+    label {
+        display: block;
+        color: gray;
+    }
+
+    .select {
+        width: 100%;
+    }
+}
+
+.images {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 10px;
+    padding: 20px;
+
+    img {
+        display: block;
+        max-width: 70px;
+    }
+}

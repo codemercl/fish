@@ -1,0 +1,19 @@
+.wrap {
+    li {
+        display: flex;
+        align-items: center;
+        
+        &:not(:first-child) {
+            margin-top: 8px;
+        }
+    }
+
+    p {
+        font-size: 18px;
+        margin-right: 13px;
+        cursor: pointer;
+        color: #747d8e;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+}

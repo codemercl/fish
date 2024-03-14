@@ -1,19 +1,23 @@
-import { Route, Routes } from 'react-router-dom';
-import { Admin, Catalog, Category, Home, Product, SignIn } from './pages';
+import { Routes, Route } from 'react-router-dom';
+import { Pages } from './components';
+import { Home, About, Catalog, Guaratees, Delivery, Product, Categories, Contacts, Panel } from './pages';
 
-function App() {
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="catalog/:title" element={<Catalog />} />
-      <Route path="catalog/:title/:source" element={<Catalog />} />
-      <Route path="catalog/:title/:source/:product" element={<Product />} />
-      <Route path="category" element={<Category />} />
-
-      <Route path="sign-in" element={<SignIn />} />
-      <Route path="admin" element={<Admin />} />
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Pages />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="guaratees" element={<Guaratees />} />
+          <Route path="delivery" element={<Delivery />} />
+          <Route path="catalog" element={<Catalog />} />
+          <Route path="product/:id" element={<Product />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="contacts" element={<Contacts />} />
+        </Route>
+        <Route path="panel" element={<Panel />} />
+      </Routes>
   );
-}
+};
 
 export default App;

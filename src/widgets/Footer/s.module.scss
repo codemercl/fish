@@ -1,0 +1,48 @@
+.wrap {
+    background: url('../../assets/images/footer.jpg');
+    background-size: 100%;
+    background-position: bottom;
+    height: 500px;
+
+    position: relative;
+    z-index: 1;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: #0000006d;
+        z-index: -1;
+    }
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    gap: 0 50px;
+    padding-top: 50px;
+
+    li {
+        display: block;
+        color: #4f9bd1;
+        font-weight: 500;
+
+        h1 {
+            display: block;
+            font-size: 20px;
+            border-bottom: 2px solid rgb(236, 209, 70);
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: block;
+            color: #4f9bd1;
+            font-size: 16px;
+            font-weight: 500;
+            margin: 5px 0;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+.wrap {
+    background: #747e8c;
+    color: #fff;
+    font-weight: 400;
+    font-size: 15px;
+    padding: 50px 0;
+
+    h1 {
+        font-size: 18px;
+    }
+
+    ul {
+        li {
+            list-style: circle;
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+    }
+
+    p {
+        margin-top: 15px;
+    }
+
+    b {
+        display: block;
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,23 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 50px;
+    height: 28vh;
+
+    border-right: 1px solid rgb(116, 126, 140);
+    border-left: 1px solid rgb(116, 126, 140);
+    
+    li {
+        a {
+            color: #feda03;
+            text-decoration: none;
+            transition: color .3s ease 0s;
+            cursor: pointer;
+            font-weight: 600;
+
+            &:hover {
+                color: #d3b403;
+            }
+        }
+    }
+}

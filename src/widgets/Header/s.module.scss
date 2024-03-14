@@ -1,0 +1,10 @@
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+
+    border-right: 1px solid rgb(116, 126, 140);
+    border-left: 1px solid rgb(116, 126, 140);
+    border-bottom: 1px solid rgb(116, 126, 140);
+}

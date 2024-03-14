@@ -1,0 +1,35 @@
+.wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: space-between;
+    gap: 70px;
+    .element {
+        img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+        }
+
+        .title {
+            display: block;
+            font-size: 23px;
+            color: #f8dd4a;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .subList {
+            display: grid;
+
+            .subTitle {
+                font-weight: 400;
+                text-align: left;
+                font-size: 18px;
+                color: #000;
+                margin-top: 15px;
+            }
+        }
+
+    }
+}

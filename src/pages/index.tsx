@@ -1,6 +1,9 @@
-export { Home } from "./Home";
-export { Catalog } from ".//Catalog";
-export { Product } from "./Product";
-export { Category } from "./Category"
-export { SignIn } from "./SignIn"
-export { Admin } from "./Admin"
+export { Home } from "./Home"
+export { About } from "./About"
+export { Catalog } from "./Catalog"
+export { Guaratees } from "./Guaratees"
+export { Delivery } from "./Delivery"
+export { Product } from "./Product"
+export { Categories } from "./Categories"
+export { Contacts } from "./Contacts"
+export { Panel } from "./Panel"
