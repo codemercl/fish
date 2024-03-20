@@ -26,13 +26,28 @@ export const Market = () => {
     const { data: selectedSubCategory } = useQuery("selectedSubCategory");
 
     const fetchProducts = async (params: any) => {
+        let headers = {};
+    
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            headers = {
+                ...headers,
+                Authorization: `Bearer ${token}`
+            };
+        }
+    
         const queryParams = new URLSearchParams(params).toString();
-        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products?page=${currentPage}&size=9&${queryParams}`);
+        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products?page=${currentPage}&size=9&${queryParams}`, {
+            headers: headers 
+        });
+    
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+    
         return response.json();
     };
+    
 
     const fetchCategories = async () => {
         const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/categories`);
@@ -46,7 +61,7 @@ export const Market = () => {
 
     const filterSubCategories = (categories: any[], selectedCategory: string | undefined) => {
         if (!selectedCategory) return []; // Если selectedCategory не определено, вернем пустой массив
-        const selectedCategoryObj = categories.find(category => category.category.name === selectedCategory);
+        const selectedCategoryObj = categories?.find(category => category.category.name === selectedCategory);
         return selectedCategoryObj ? selectedCategoryObj.sub_categories : [];
     };
 

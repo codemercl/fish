@@ -47,7 +47,24 @@ export const Profile = () => {
         description: "Ви успішно увійшли в систему",
       });
       setSignInVisible(false);
-      navigate('/panel');
+      const userRole = responseData.user.role;
+      if (userRole !== "ROLE_ADMIN") {
+        notification.success({
+          message: "Успішно",
+          description: "Ви успішно увійшли в систему, будь ласка, перенаправляємо вас на сторінку каталогу",
+        });
+        setSignInVisible(false);
+        navigate('/catalog'); 
+      } else {
+        sessionStorage.setItem("token", responseData.access_token);
+      
+        notification.success({
+          message: "Успішно",
+          description: "Ви успішно увійшли в систему",
+        });
+        setSignInVisible(false);
+        navigate('/panel');
+      }
     } catch (error) {
       notification.error({
         message: "Помилка",
@@ -56,14 +73,17 @@ export const Profile = () => {
     }
   });
 
-  const registerMutation = useMutation<any, Error, FormData>(async (formData) => {
+  const registerMutation = useMutation<any, Error, FormData>(async (values) => {
     // Логика регистрации...
     try {
       const response = await fetch(
         "https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/authenticate/sign-up",
         {
           method: "POST",
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
         }
       );
 
@@ -101,21 +121,9 @@ export const Profile = () => {
 
   const handleRegister = async (values: any) => {
     // Логика регистрации...
+    console.log(values, 'values')
     try {
-      const formData = new FormData();
-      formData.append("email", values.email);
-      formData.append("role", values.role);
-      formData.append("first_name", values.first_name);
-      formData.append("last_name", values.last_name);
-      formData.append("password", values.password);
-      formData.append("repeated_password", values.repeated_password);
-      formData.append("phone", values.phone);
-      formData.append("city", values.city);
-      formData.append("region", values.region);
-      formData.append("post_office", values.post_office);
-      formData.append("address", values.address);
-
-      registerMutation.mutate(formData); // Вызываем мутацию для регистрации с передачей данных формы
+      registerMutation.mutate(values); // Вызываем мутацию для регистрации с передачей данных формы
     } catch (error) {
       console.error("Ошибка при регистрации:", error);
     }
@@ -190,7 +198,7 @@ export const Profile = () => {
             email: "",
             password: "",
             repeated_password: "",
-            role: "ROLE_CLIENT",
+            role: "ROLE_USER",
             first_name: "",
             last_name: "",
             phone: "",
@@ -204,12 +212,12 @@ export const Profile = () => {
         >
           <Form.Item
             name="role"
-            label="Роль"
+            label="Тип аккаунту"
             rules={[{ required: true, message: "Будь ласка, виберіть роль" }]}
           >
             <Select>
-              <Option value="ROLE_CLIENT">Оптовий</Option>
-              <Option value="ROLE_CLIENT_PLUS">Розбріблений</Option>
+              <Option value="ROLE_USER">Роздріб</Option>
+              <Option value="ROLE_USER_PLUS">Гурт</Option>
             </Select>
           </Form.Item>
           <Form.Item
@@ -218,6 +226,13 @@ export const Profile = () => {
             rules={[{ required: true, message: "Будь ласка, введіть iмайл" }]}
           >
             <Input className={styled.textfield} placeholder="Email" />
+          </Form.Item>
+          <Form.Item
+            name="phone"
+            label="Телефон"
+            rules={[{ required: true, message: "Будь ласка, введіть телефон" }]}
+          >
+            <Input className={styled.textfield} placeholder="Телефон" />
           </Form.Item>
           <div className={styled.grid}>
             <Form.Item
@@ -250,10 +265,10 @@ export const Profile = () => {
             </Form.Item>
             <Form.Item
               name="post_office"
-              label="Индекс"
-              rules={[{ required: true, message: "Будь ласка, введіть Индекс" }]}
+              label="Відділення (НП)"
+              rules={[{ required: true, message: "Будь ласка, введіть відділення" }]}
             >
-              <Input className={styled.textfield} placeholder="Индекс" />
+              <Input className={styled.textfield} placeholder="Відділення" />
             </Form.Item>
             <Form.Item
               name="address"

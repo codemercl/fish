@@ -7,7 +7,7 @@ import { useQueryClient } from "react-query";
 import { notification } from 'antd';
 
 interface Props {
-    data: ProductTypes;
+    data: ProductTypes | any;
 }
 
 export const Product: FC<Props> = ({ data }) => {

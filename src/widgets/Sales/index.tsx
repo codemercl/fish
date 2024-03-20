@@ -11,12 +11,27 @@ import { Skeleton } from "antd";
 export const Sales: React.FC = () => {
 
     const fetchProducts = async () => {
-        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/discount`);
+        let headers = {};
+    
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            headers = {
+                ...headers,
+                Authorization: `Bearer ${token}`
+            };
+        }
+    
+        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/discount`, {
+            headers: headers 
+        });
+    
         if (!response.ok) {
             throw new Error("Failed to fetch products");
         }
+    
         return response.json();
     };
+    
 
     const { data, isLoading, isError } = useQuery<ProductTypes[], Error>(
         ["discount"],

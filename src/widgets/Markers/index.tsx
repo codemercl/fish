@@ -15,10 +15,24 @@ interface Props {
 export const Markers: React.FC<Props> = ({ marker }) => {
 
     const fetchProducts = async (marker: string) => {
-        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/promo?marker=${marker}`);
+        let headers = {};
+
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            headers = {
+                ...headers,
+                Authorization: `Bearer ${token}`
+            };
+        }
+
+        const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/promo?marker=${marker}`, {
+            headers: headers 
+        });
+
         if (!response.ok) {
             throw new Error("Failed to fetch products");
         }
+
         return response.json();
     };
 

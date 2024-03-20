@@ -1,5 +1,14 @@
 .globalLayout {
-    min-height: 100vh;
+    height: 95vh;
+    position: relative;
+
+    .logo {
+        position: absolute;
+        top: 30px;
+        left: 25px;
+        background-color: rgb(236, 236, 236);
+        padding: 10px;
+    }
 }
 
 .sidebar {
@@ -12,12 +21,13 @@
 
 .layout {
     padding: 0 24px 24px;
+    height: 95vh;
 }
 
 .content {
     padding: 23px;
-    margin: 0;
-    min-height: 280px;
+    height: 95vh;
+    overflow-y: auto;
 }
 
 .exit {

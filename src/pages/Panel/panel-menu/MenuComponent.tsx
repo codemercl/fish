@@ -30,12 +30,15 @@ export const MenuComponent: React.FC<MenuComponentProps> = ({ selectedMenuItem, 
         <Menu.Item key="4">Усі категорії</Menu.Item>
       </Menu.SubMenu>
       <Menu.SubMenu key="sub3" icon={<ProfileOutlined />} title="Заявки">
-        <Menu.Item key="5">Додати заявку</Menu.Item>
         <Menu.Item key="6">Усі заявки</Menu.Item>
+        <Menu.Item key="11">Усі користувачі</Menu.Item>
+      </Menu.SubMenu>
+      <Menu.SubMenu key="sub5" icon={<ProfileOutlined />} title="Повідомлення">
+        <Menu.Item key="9">Усі повідомлення</Menu.Item>
+        <Menu.Item key="10">Усі звортні виклики</Menu.Item>
       </Menu.SubMenu>
       <Menu.SubMenu key="sub4" icon={<SettingOutlined />} title="Налаштування">
         <Menu.Item key="7">Опції магазину</Menu.Item>
-        <Menu.Item key="8">Вийти</Menu.Item>
       </Menu.SubMenu>
     </Menu>
   );

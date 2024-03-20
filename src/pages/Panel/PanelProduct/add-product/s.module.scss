@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .form {
+
+
+        .textfieldBlocks {
+            border: 1px solid #d9d9d9;
+            padding: 30px;
+
+            grid-template-columns: 250px 250px 250px 250px;
+            display: grid;
+            gap: 0 50px;
+        }
+    }
+}

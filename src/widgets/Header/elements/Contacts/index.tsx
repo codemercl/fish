@@ -11,7 +11,7 @@ export const Contacts = () => {
             </li>
             <li>
                 <IoIosMail fill="rgb(116, 125, 142)" size={28} />
-                <p>optimist@gmail.com</p>
+                <p>optimisthook@gmail.com</p>
             </li>
         </ul>
     )

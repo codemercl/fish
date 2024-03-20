@@ -4,6 +4,7 @@ import { ContentItems } from "./panel-content/ContentItems";
 import { MenuComponent } from "./panel-menu/MenuComponent";
 import styled from "./s.module.scss";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/images/default-logo.png"
 
 const { Content, Sider } = Layout;
 
@@ -33,15 +34,16 @@ export const Panel: React.FC<PanelProps> = () => {
   return (
     <Layout className={styled.globalLayout}>
       <Sider width={300}>
+        <Link className={styled.logo} to='/'>
+          <img src={Logo} alt="Logo" />
+        </Link>
         <div className={styled.sidebar}>
           <MenuComponent selectedMenuItem={selectedMenuItem} handleMenuClick={handleMenuClick} />
         </div>
       </Sider>
-      <Layout className={styled.layout}>
-        <Content className={styled.content}>
-          {tokenExists ? contentToDisplay : null}
-        </Content>
-      </Layout>
+      <Content className={styled.content}>
+        {tokenExists ? contentToDisplay : null}
+      </Content>
       <Modal
         title="Будь ласка, перейдіть в обліковий запис"
         visible={showModal}

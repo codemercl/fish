@@ -96,7 +96,7 @@ export const productColumns = (deleteProduct: (id: number) => void, editProduct:
     title: "Действия",
     key: "actions",
     render: (_: any, record: any) => (
-      <div style={{display: 'flex', flexDirection: "column", gap: "10px"}}>
+      <div style={{display: 'flex', gap: "10px"}}>
         <Button
           type="primary"
           danger
