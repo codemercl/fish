@@ -5,6 +5,7 @@ import { FaShoppingBasket } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { notification } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
     data: ProductTypes | any;
@@ -15,9 +16,9 @@ export const Product: FC<Props> = ({ data }) => {
 
     const addToBasket = (product: ProductTypes) => {
         const basketItems = queryClient.getQueryData<ProductTypes[]>("Basket") || [];
-        
+    
         const isProductInBasket = basketItems.some(item => item.id === product.id);
-        
+    
         if (isProductInBasket) {
             notification.info({
                 message: 'Інформація',
@@ -25,8 +26,13 @@ export const Product: FC<Props> = ({ data }) => {
             });
             return;
         }
-        
-        basketItems.push(product);
+    
+        const productWithUUID: ProductTypes = {
+            ...product,
+            uid: uuidv4(),
+        };
+    
+        basketItems.push(productWithUUID); // Добавляем product с UUID в корзину
         queryClient.setQueryData<ProductTypes[]>("Basket", basketItems);
         notification.success({
             message: 'Успішно',

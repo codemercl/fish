@@ -1,4 +1,6 @@
 export interface ProductTypes {
+    quantity?: any;
+    uid?: number | string;
     id: number;
     title: string;
     article: string;

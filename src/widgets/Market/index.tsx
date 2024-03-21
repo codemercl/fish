@@ -166,7 +166,7 @@ export const Market = () => {
                         <Option value="priceUah,desc">Ціна: спадання</Option>
                     </Select>
                     <Menu>
-                        <SubMenu key="marker" title={filters.marker ? `Маркети: ${filters.marker}` : 'Маркети'}>
+                        <SubMenu key="marker" title={filters.marker ? `Маркери: ${filters.marker}` : 'Маркери'}>
                             <MenuItem key="Новинки" onClick={() => handleFilterChange('marker', ['Новинки'])}>Новинки</MenuItem>
                             <MenuItem key="Супер ціна" onClick={() => handleFilterChange('marker', ['Супер ціна'])}>Супер ціна</MenuItem>
                             <MenuItem key="Знижки" onClick={() => handleFilterChange('marker', ['Знижки'])}>Знижки</MenuItem>

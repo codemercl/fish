@@ -11,6 +11,7 @@ const { Option } = Select;
 export const Basket: FC = () => {
     const queryClient = useQueryClient();
     const { data: basketItems } = useQuery<ProductTypes[]>("Basket");
+    console.log(basketItems, 'basketItems')
     const [modalVisible, setModalVisible] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = useRef<any>();
@@ -22,7 +23,7 @@ export const Basket: FC = () => {
     const [address, setAddress] = useState("");
     const [postNumber, setPostNumber] = useState("");
     const [phone, setPhone] = useState("");
-    const [selectedSizes, setSelectedSizes] = useState<Record<number, string | undefined>>({});
+    const [selectedSizes, setSelectedSizes] = useState<Record<any, any | undefined>>({});
     const [selectedQuantities, setSelectedQuantities] = useState<any>({});
     const [paymentType, setPaymentType] = useState("");
 
@@ -70,7 +71,7 @@ export const Basket: FC = () => {
 
                     // Filter out the item with the given itemId
                     const updatedBasketItems = prevBasketItems.filter(
-                        (item: ProductTypes) => item.id !== itemId
+                        (item: ProductTypes) => item.uid !== itemId
                     );
                     return updatedBasketItems;
                 }
@@ -89,10 +90,10 @@ export const Basket: FC = () => {
             }
 
             // Собрать данные о товарах
-            const items = basketItems?.map(item => ({
+            const items = basketItems?.map((item: any) => ({
                 product_id: item.id,
-                size: selectedSizes[item.id] || null,
-                quantity: selectedQuantities[item.id] || 1,
+                size: selectedSizes[item.uid] || item?.parameters?.size,
+                quantity: selectedQuantities[item.uid] || 1,
             }));
 
             // Собрать данные о покупателе
@@ -122,8 +123,8 @@ export const Basket: FC = () => {
 
     const slideContents = [
         <div className={styled.basket} key="1">
-            {basketItems && basketItems.map(item => (
-                <div className={styled.element} key={item.id}>
+            {basketItems && basketItems.map((item: any) => (
+                <div className={styled.element} key={item.uid}>
                     <img src={item?.images_links[0]} alt="images_links" />
                     <div className={styled.infoBasket}>
                         <p>{item?.article}</p>
@@ -135,8 +136,8 @@ export const Basket: FC = () => {
                             <Select
                                 className={styled.select}
                                 placeholder="Виберіть розмір"
-                                value={selectedSizes[item.id]}
-                                onChange={(value) => setSelectedSizes({ ...selectedSizes, [item.id]: value })}
+                                value={selectedSizes[item.uid]}
+                                onChange={(value) => setSelectedSizes({ ...selectedSizes, [item.uid]: value })}
                             >
                                 {item?.parameters.size.split(',').map((size: string, index: number) => (
                                     <Option key={index} value={size.trim()}>
@@ -151,9 +152,9 @@ export const Basket: FC = () => {
                     <InputNumber
                         className={styled.textield}
                         defaultValue={1} // Устанавливаем значение по умолчанию равное 1
-                        onChange={(value) => setSelectedQuantities({ ...selectedQuantities, [item.id]: value })}
+                        onChange={(value) => setSelectedQuantities({ ...selectedQuantities, [item?.uid]: value })}
                     />
-                    <IoMdCloseCircleOutline className={styled.delete} size={20} onClick={() => handleRemoveItem(item?.id)} />
+                    <IoMdCloseCircleOutline className={styled.delete} size={20} onClick={() => handleRemoveItem(item?.uid)} />
                 </div>
             ))}
         </div>,

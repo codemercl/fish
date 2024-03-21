@@ -7,9 +7,23 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdOutlinePayment } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { notification } from "antd";
+import { v4 as uuidv4 } from 'uuid';
 
 const fetchProduct = async (productId: number) => {
-  const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/${productId}`);
+
+  let headers = {};
+
+  const token = sessionStorage.getItem("token");
+  if (token) {
+    headers = {
+      ...headers,
+      Authorization: `Bearer ${token}`
+    };
+  }
+
+  const response = await fetch(`https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/products/${productId}`, {
+    headers: headers
+  });
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
@@ -22,38 +36,54 @@ export const Product: FC = () => {
   const { isLoading, isError, data, refetch } = useQuery<ProductTypes>('product', () => fetchProduct(productId || 0), {
     enabled: !!productId,
   });
+  const [mainImage, setMainImage] = useState<string | undefined>();
+
+  useEffect(() => {
+    setMainImage(data?.images_links[0])
+  }, [data])
+
+  const handleThumbnailClick = (image: string) => {
+    setMainImage(image);
+  };
 
   const queryClient = useQueryClient();
 
   const addToBasket = (product: ProductTypes) => {
     const basketItems = queryClient.getQueryData<ProductTypes[]>("Basket") || [];
-    
-    const isProductInBasket = basketItems.some(item => item.id === product.id);
-    
+  
+    const isProductInBasket = basketItems.some(item => 
+        item.id === product.id && 
+        item.parameters?.size === (selectedSize || (product.parameters && product.parameters.size) || "")
+    );
+  
     if (isProductInBasket) {
-        notification.info({
-            message: 'Інформація',
-            description: 'Даний товар вже є в корзині.'
-        });
-        return;
+      notification.info({
+        message: 'Інформація',
+        description: 'Даний товар вже є в корзині.'
+      });
+      return;
     }
   
-    // Создаем объект для добавления в корзину
+    const uuidString = uuidv4(); // Генерируем UUID в виде строки
+    const uuidNumber = parseInt(uuidString.replace(/\D/g, ''), 10); // Преобразуем строку в числовое значение
+  
     const productToAdd: ProductTypes = {
-      ...product, // Копируем все свойства продукта
+      ...product,
+      uid: uuidNumber, // Используем числовое значение UUID
       parameters: {
-        ...product.parameters, // Копируем все параметры
-        size: selectedSize || (product.parameters && product.parameters.size) || "" // Используем выбранный размер, если выбран, иначе размер из данных о продукте
+        ...product.parameters,
+        size: selectedSize || (product.parameters && product.parameters.size) || ""
       }
     };
-    
+  
     basketItems.push(productToAdd);
     queryClient.setQueryData<ProductTypes[]>("Basket", basketItems);
     notification.success({
-        message: 'Успішно',
-        description: 'Замовлення створено.'
+      message: 'Успішно',
+      description: 'Замовлення створено.'
     });
   };
+
 
   const { id } = useParams<{ id?: string }>();
   useEffect(() => {
@@ -88,7 +118,20 @@ export const Product: FC = () => {
       <Container>
         <div className={styled.content}>
           <div className={styled.image}>
-            <img src={data?.images_links[0]} alt="images_links" />
+            <div>
+              <img src={mainImage} alt="main" style={{ width: '100%', height: 'auto' }} />
+              <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '10px' }}>
+                {data?.images_links.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`thumbnail-${index}`}
+                    style={{ width: '50px', height: '50px', margin: '5px', cursor: 'pointer' }}
+                    onClick={() => handleThumbnailClick(image)}
+                  />
+                ))}
+              </div>
+            </div>
             {data?.description &&
               <div className={styled.productFeature}>
                 <div className={styled.productHead}>

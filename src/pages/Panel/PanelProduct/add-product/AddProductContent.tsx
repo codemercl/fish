@@ -1,4 +1,4 @@
-import { Form, Input, Select, Button, Space } from 'antd';
+import { Form, Input, Select, Button, Space, InputNumber, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, SetStateAction, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -51,8 +51,8 @@ export const AddProductContent = () => {
       return;
     }
   
-    let { parentCategory, subCategory, ...restValues } = values; // Деструктурируем исключая parentCategory и subCategory
-  
+    let { parentCategory, subCategory, ...restValues } = values;
+
     let categoryData = {};
     if (subCategory) {
       categoryData = {
@@ -81,15 +81,24 @@ export const AddProductContent = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ ...restValues, category: categoryData, images_links: imageLinks }), // Используем restValues вместо values
+        body: JSON.stringify({ ...restValues, category: categoryData, images_links: imageLinks }), 
       });
   
       if (!response.ok) {
         throw new Error('Failed to create product');
       }
+
+      notification.success({
+        message: "Успішно",
+        description: "Товар створено",
+      });
   
       // Handle success
     } catch (error) {
+      notification.error({
+        message: "Помилка",
+        description: `Товар не створено`,
+      });
       console.error('Error creating product:', error);
     }
   };
@@ -112,7 +121,7 @@ export const AddProductContent = () => {
           <Form.Item
             label="Категорія"
             name="parentCategory"
-            rules={[{ required: true, message: 'Please select parent category!' }]}
+            rules={[{ required: true, message: 'Оберіть категорію!' }]}
           >
             <Select placeholder="Оберіть категорію" onChange={handleParentCategoryChange}>
               {categories &&
@@ -142,7 +151,7 @@ export const AddProductContent = () => {
           <Form.Item
             label="Назва"
             name="title"
-            rules={[{ required: true, message: 'Please input title!' }]}
+            rules={[{ required: true, message: 'Впишіть поле "назва"!' }]}
           >
             <Input />
           </Form.Item>
@@ -179,13 +188,13 @@ export const AddProductContent = () => {
             label="Ціна (UAH)"
             name="price_uah"
           >
-            <Input type="number" />
+            <InputNumber style={{width: '100%'}} type="text" />
           </Form.Item>
           <Form.Item
             label="Ціна (USD)"
             name="price_usd"
           >
-            <Input type="number" />
+            <InputNumber style={{width: '100%'}} type="text" />
           </Form.Item>
           <Form.Item
             label="Дісконт"
@@ -333,7 +342,7 @@ export const AddProductContent = () => {
                 <Input
                   value={link}
                   onChange={(e) => handleInputChange(e.target.value, index)}
-                  placeholder="Enter image link"
+                  placeholder="Скопіюйте лінк на фото"
                 />
                 <Button
                   onClick={() => handleRemoveInput(index)}

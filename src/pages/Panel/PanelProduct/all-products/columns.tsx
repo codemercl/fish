@@ -63,7 +63,7 @@ export const productColumns = (deleteProduct: (id: number) => void, editProduct:
     render: (modified_date: string) => <div style={{ width: 140 }}>{formatDate(modified_date)}</div>,
   },
   {
-    title: "Розмер",
+    title: "Розмір",
     dataIndex: ["parameters", "size"],
     key: "size",
   },
