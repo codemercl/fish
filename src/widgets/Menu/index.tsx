@@ -1,11 +1,14 @@
 import { Container } from "../../components";
 import styled from "./s.module.scss";
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 export const Menu = () => {
+    const location = useLocation();
+    const shouldRenderContainer = location.pathname !== '/';
+  
     return (
         <Container>
-            <ul className={styled.wrap}>
+            <ul className={shouldRenderContainer ? styled.wrap : styled.wrapLarge}>
                 <li>
                     <Link to="/">Головнa
                     </Link>

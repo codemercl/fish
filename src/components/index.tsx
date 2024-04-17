@@ -1,4 +1,5 @@
 export { Container } from "./Container"
 export { Pages } from "./Pages"
+export { Page } from "./Page"
 export { Product } from "./Product"
 export { Basket } from "./Basket"

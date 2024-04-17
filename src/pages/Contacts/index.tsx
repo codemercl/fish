@@ -6,6 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { MdDateRange } from "react-icons/md";
 import { Button, Form, Input, notification } from "antd";
 import { useMutation } from "react-query";
+import InputMask from "react-input-mask";
 
 export const Contacts: FC = () => {
 
@@ -82,12 +83,23 @@ export const Contacts: FC = () => {
 
           <div className={styled.contactForm}>
             <Form layout="vertical" style={{ maxWidth: 400 }} onFinish={handleSubmit}>
-              <Form.Item
+              {/* <Form.Item
                 name="phone"
                 label="Телефон"
                 rules={[{ required: true, message: "Будь ласка, введіть телефон" }]}
               >
                 <Input className={styled.textfield} placeholder="Телефон" />
+              </Form.Item> */}
+              <Form.Item
+                name="phone"
+                label="Телефон"
+                rules={[{ required: true, message: "Будь ласка, введіть телефон" }]}
+              >
+                <InputMask
+                  mask="+38 (999) 999-99-99"
+                  placeholder="Телефон"
+                  className={styled.phone}
+                />
               </Form.Item>
               <Form.Item
                 name="name"

@@ -51,7 +51,6 @@ export const Options = () => {
   }
 
   const columns = [
-    { title: 'Ідентифікатор', dataIndex: 'id', key: 'id' },
     { title: 'USD', dataIndex: 'usd', key: 'usd' },
     { title: 'Створено', dataIndex: 'createdAt', key: 'createdAt' },
     { title: 'Оновлено', dataIndex: 'updatedAt', key: 'updatedAt' },

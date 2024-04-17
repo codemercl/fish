@@ -54,6 +54,7 @@ export interface ProductTypes {
     price_usd: number;
     price_uah: number;
     discount: number;
+    markup: number;
     price_old: number;
     created_date: string;
     modified_date: string;

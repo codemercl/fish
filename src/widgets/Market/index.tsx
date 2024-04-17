@@ -162,14 +162,14 @@ export const Market = () => {
             <div className={styled.wrap}>
                 <div className={styled.filters}>
                     <Select className={styled.select} defaultValue="priceUah,asc" onChange={handleSortChange}>
-                        <Option value="priceUah,asc">Ціна: зростання</Option>
-                        <Option value="priceUah,desc">Ціна: спадання</Option>
+                        <Option value="priceUah,asc">Від дешевих до дорогих</Option>
+                        <Option value="priceUah,desc">Від дорогих до дешевих</Option>
                     </Select>
                     <Menu>
                         <SubMenu key="marker" title={filters.marker ? `Маркери: ${filters.marker}` : 'Маркери'}>
                             <MenuItem key="Новинки" onClick={() => handleFilterChange('marker', ['Новинки'])}>Новинки</MenuItem>
                             <MenuItem key="Супер ціна" onClick={() => handleFilterChange('marker', ['Супер ціна'])}>Супер ціна</MenuItem>
-                            <MenuItem key="Знижки" onClick={() => handleFilterChange('marker', ['Знижки'])}>Знижки</MenuItem>
+                            <MenuItem key="Хіт" onClick={() => handleFilterChange('marker', ['Хіт'])}>Хіт</MenuItem>
                         </SubMenu>
                         <SubMenu key="brand" title={filters.brand ? `Brand: ${filters.brand}` : 'Бренди'}>
                             <MenuItem key="Optimist" onClick={() => handleFilterChange('brand', ['Optimist'])}>Optimist</MenuItem>

@@ -31,6 +31,7 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({ visible, onC
     }
   });
 
+
   const [formData, setFormData] = useState(product);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState('');
@@ -53,7 +54,6 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({ visible, onC
       };
     });
   };
-  
 
   const handleSelectChange = (value: any, field: string) => {
     setFormData({ ...formData, [field]: value });
@@ -109,6 +109,7 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({ visible, onC
         in_stock: formData.in_stock,
         price_usd: formData.price_usd,
         discount: formData.discount,
+        markup: formData.markup,
         images_links: formData.images_links,
         category: {
           id: categoryData.id,
@@ -193,7 +194,7 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({ visible, onC
         </div>
         <div>
           <label htmlFor="description">Опис</label>
-          <Input name="description" value={productSingle?.description || ''} onChange={handleChange("description")} />
+          <Input name="description" value={formData?.description || ''} onChange={handleChange("description")} />
         </div>
         <div>
           <label htmlFor="brand">Бренд</label>
@@ -300,6 +301,10 @@ export const EditProductModal: React.FC<EditProductModalProps> = ({ visible, onC
         <div>
           <label htmlFor="discount">Знижка</label>
           <Input name="discount" value={formData?.discount} onChange={handleChange("discount")} />
+        </div>
+        <div>
+          <label htmlFor="markup">Націнка</label>
+          <Input name="markup" value={formData?.markup} onChange={handleChange("markup")} />
         </div>
         <div>
           <label htmlFor="images_links">Посилання на зображення</label>

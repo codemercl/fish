@@ -16,9 +16,9 @@ export const Product: FC<Props> = ({ data }) => {
 
     const addToBasket = (product: ProductTypes) => {
         const basketItems = queryClient.getQueryData<ProductTypes[]>("Basket") || [];
-    
+
         const isProductInBasket = basketItems.some(item => item.id === product.id);
-    
+
         if (isProductInBasket) {
             notification.info({
                 message: 'Інформація',
@@ -26,12 +26,12 @@ export const Product: FC<Props> = ({ data }) => {
             });
             return;
         }
-    
+
         const productWithUUID: ProductTypes = {
             ...product,
             uid: uuidv4(),
         };
-    
+
         basketItems.push(productWithUUID); // Добавляем product с UUID в корзину
         queryClient.setQueryData<ProductTypes[]>("Basket", basketItems);
         notification.success({
@@ -39,7 +39,7 @@ export const Product: FC<Props> = ({ data }) => {
             description: 'Замовлення створено.'
         });
     };
-    
+
 
     return (
         <div className={styled.wrap}>
@@ -52,7 +52,11 @@ export const Product: FC<Props> = ({ data }) => {
             </div>
             <div className={styled.body}>
                 <p>{data.article}</p>
+                <div className={styled.stock}>
+                    <span>{data.in_stock && 'У наявності'}</span>
+                </div>
                 <Link to={`/product/${data?.id}`}>{data.title}</Link>
+                {data.price_old && <h3>{data.price_old} грн.</h3>}
                 <h1>{data.price_uah} грн.</h1>
                 <FaShoppingBasket size={25} fill="#feda03" className={styled.basket} onClick={() => addToBasket(data)} />
             </div>

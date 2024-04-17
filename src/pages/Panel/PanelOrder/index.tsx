@@ -54,7 +54,7 @@ const fetchOrders = async () => {
 
 const formatDate = (date: string) => {
     return format(new Date(date), "dd MM yyyy - HH:mm");
-  };
+};
 
 export const Orders: FC = () => {
     const { data, isLoading, refetch } = useQuery<Order[]>('orders', fetchOrders);
@@ -104,12 +104,12 @@ export const Orders: FC = () => {
                         <Table
                             scroll={{ x: true }} pagination={false}
                             columns={[
-                                { title: 'Title', dataIndex: 'title', key: 'title' },
-                                { title: 'Quantity', dataIndex: 'quantity', key: 'quantity' },
-                                { title: 'Size', dataIndex: 'size', key: 'size' },
-                                { title: 'Price', dataIndex: 'price', key: 'price' },
+                                { title: 'Назва', dataIndex: 'title', key: 'title' },
+                                { title: 'Кількість', dataIndex: 'quantity', key: 'quantity' },
+                                { title: 'Розмір', dataIndex: 'size', key: 'size' },
+                                { title: 'Ціна', dataIndex: 'price', key: 'price' },
                                 {
-                                    title: 'Image',
+                                    title: 'Картинка',
                                     dataIndex: 'image',
                                     key: 'image',
                                     render: (image: string) => <img src={image} alt="Product" style={{ maxWidth: '100px' }} />,
@@ -120,11 +120,6 @@ export const Orders: FC = () => {
                     </Panel>
                 </Collapse>
             ),
-        },
-        {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id',
         },
         {
             title: 'Телефон',
@@ -228,7 +223,6 @@ export const Orders: FC = () => {
                         });
                     }}
                 >
-                    Видалити
                 </Button>
             ),
         },

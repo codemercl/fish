@@ -44,6 +44,7 @@ export const AddProductForm: React.FC = () => {
         name,
         image_link: imageLink,
         parent: parentCategory ? {
+          id: parentCategory.category.id,
           name: parentCategory.category.name,
           image_link: parentCategory.category.image_link
         } : null,

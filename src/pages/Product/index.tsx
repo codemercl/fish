@@ -50,12 +50,12 @@ export const Product: FC = () => {
 
   const addToBasket = (product: ProductTypes) => {
     const basketItems = queryClient.getQueryData<ProductTypes[]>("Basket") || [];
-  
-    const isProductInBasket = basketItems.some(item => 
-        item.id === product.id && 
-        item.parameters?.size === (selectedSize || (product.parameters && product.parameters.size) || "")
+
+    const isProductInBasket = basketItems.some(item =>
+      item.id === product.id &&
+      item.parameters?.size === (selectedSize || (product.parameters && product.parameters.size) || "")
     );
-  
+
     if (isProductInBasket) {
       notification.info({
         message: 'Інформація',
@@ -63,10 +63,10 @@ export const Product: FC = () => {
       });
       return;
     }
-  
+
     const uuidString = uuidv4(); // Генерируем UUID в виде строки
     const uuidNumber = parseInt(uuidString.replace(/\D/g, ''), 10); // Преобразуем строку в числовое значение
-  
+
     const productToAdd: ProductTypes = {
       ...product,
       uid: uuidNumber, // Используем числовое значение UUID
@@ -75,7 +75,7 @@ export const Product: FC = () => {
         size: selectedSize || (product.parameters && product.parameters.size) || ""
       }
     };
-  
+
     basketItems.push(productToAdd);
     queryClient.setQueryData<ProductTypes[]>("Basket", basketItems);
     notification.success({
@@ -163,6 +163,33 @@ export const Product: FC = () => {
                 ))}
               </div>
             </div>
+
+            <div className={styled.productFeature}>
+              <div className={styled.productHead}>
+                <h3>Деталі товару</h3>
+              </div>
+              <div className={styled.productFeatureList}>
+                {data.brand && <li>Бренд: {data.brand}</li>}
+                {data?.parameters?.size && <li>Розмір: {data?.parameters?.size}</li>}
+                {data?.parameters?.amount && <li>Кількість: {data?.parameters?.amount}</li>}
+                {data?.parameters?.height && <li>Висота: {data?.parameters?.height}</li>}
+                {data?.parameters?.length && <li>Довжина: {data?.parameters?.length}</li>}
+                {data?.parameters?.width && <li>Ширина: {data?.parameters?.width}</li>}
+                {data?.parameters?.weight && <li>Вага: {data?.parameters?.weight}</li>}
+                {data?.parameters?.action && <li>Дія: {data?.parameters?.action}</li>}
+                {data?.parameters?.diameter && <li>Діаметр: {data?.parameters?.diameter}</li>}
+                {data?.parameters?.type && <li>Тип: {data?.parameters?.type}</li>}
+                {data?.parameters?.material && <li>Матеріал: {data?.parameters?.material}</li>}
+                {data?.parameters?.made_by && <li>Вироблено: {data?.parameters?.made_by}</li>}
+                {data?.parameters?.color && <li>Колір: {data?.parameters?.color}</li>}
+                {data?.parameters?.fastening_type && <li>Тип кріплення: {data?.parameters?.fastening_type}</li>}
+                {data?.parameters?.form && <li>Форма: {data?.parameters?.form}</li>}
+                {data?.parameters?.peculiarities && <li>Особливості: {data?.parameters?.peculiarities}</li>}
+                {data?.parameters?.aroma && <li>Аромат: {data?.parameters?.aroma}</li>}
+                {data?.parameters?.volume && <li>Об'єм: {data?.parameters?.volume}</li>}
+                {data?.parameters?.number && <li>Номер: {data?.parameters?.number}</li>}
+              </div>
+            </div>
             <div className={styled.productDetails}>
               <div className={styled.productBlock}>
                 <div className={styled.productHead}>
@@ -170,7 +197,7 @@ export const Product: FC = () => {
                   <h3>Доставка замовлення</h3>
                 </div>
                 <ul>
-                  <li>Поштоватом (НП)</li>
+                  <li>Поштоматом (НП)</li>
                   <li>Нова пошта</li>
                   <li>Самовивіз</li>
                 </ul>
@@ -184,31 +211,6 @@ export const Product: FC = () => {
                   <li>Оплата готівкою при отриманні (Післяплата)</li>
                   <li>Оплата карткою на рахунок</li>
                 </ul>
-              </div>
-            </div>
-            <div className={styled.productFeature}>
-              <div className={styled.productHead}>
-                <MdOutlinePayment />
-                <h3>Оплата замовлення</h3>
-              </div>
-              <div className={styled.productFeatureList}>
-                {data.brand && <li>Бренд: {data.brand}</li>}
-                {data?.parameters?.size && <li>Розмір: {data?.parameters?.size}</li>}
-                {data?.parameters?.height && <li>Висота: {data?.parameters?.height}</li>}
-                {data?.parameters?.length && <li>Довжина: {data?.parameters?.length}</li>}
-                {data?.parameters?.width && <li>Ширина: {data?.parameters?.width}</li>}
-                {data?.parameters?.weight && <li>Вага: {data?.parameters?.weight}</li>}
-                {data?.parameters?.diameter && <li>Діаметр: {data?.parameters?.diameter}</li>}
-                {data?.parameters?.type && <li>Тип: {data?.parameters?.type}</li>}
-                {data?.parameters?.material && <li>Матеріал: {data?.parameters?.material}</li>}
-                {data?.parameters?.made_by && <li>Вироблено: {data?.parameters?.made_by}</li>}
-                {data?.parameters?.color && <li>Колір: {data?.parameters?.color}</li>}
-                {data?.parameters?.fastening_type && <li>Тип кріплення: {data?.parameters?.fastening_type}</li>}
-                {data?.parameters?.form && <li>Форма: {data?.parameters?.form}</li>}
-                {data?.parameters?.peculiarities && <li>Особливості: {data?.parameters?.peculiarities}</li>}
-                {data?.parameters?.aroma && <li>Аромат: {data?.parameters?.aroma}</li>}
-                {data?.parameters?.volume && <li>Гучність: {data?.parameters?.volume}</li>}
-
               </div>
             </div>
           </div>

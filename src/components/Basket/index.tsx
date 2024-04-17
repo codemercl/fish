@@ -6,12 +6,13 @@ import { useMutation } from 'react-query';
 import styled from "./s.module.scss";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { FaBasketShopping } from "react-icons/fa6";
+import InputMask from "react-input-mask";
+
 const { Option } = Select;
 
 export const Basket: FC = () => {
     const queryClient = useQueryClient();
     const { data: basketItems } = useQuery<ProductTypes[]>("Basket");
-    console.log(basketItems, 'basketItems')
     const [modalVisible, setModalVisible] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = useRef<any>();
@@ -33,12 +34,21 @@ export const Basket: FC = () => {
 
     const createOrderMutation = useMutation(
         async (orderData: any) => {
+            const token = sessionStorage.getItem('token');
+
+            const headers: Record<string, string> = {
+                'Content-Type': 'application/json',
+            };
+
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+
+            headers['Content-Type'] = 'application/json';
             try {
                 const response = await fetch('https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/orders', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: headers,
                     body: JSON.stringify(orderData),
                 });
 
@@ -85,7 +95,7 @@ export const Basket: FC = () => {
         if (currentSlide === 1) {
             // Проверить введенные данные
             if (firstName.trim() === "" || lastName.trim() === "" || name.trim() === "" || city.trim() === "" || region.trim() === "" || address.trim() === "" || postNumber.trim() === "" || phone.trim() === "" || paymentType.trim() === "") {
-                message.error("Ошибка: Пожалуйста, заполните все поля.");
+                message.error("Помилка. Заповніть всі поля");
                 return;
             }
 
@@ -121,42 +131,55 @@ export const Basket: FC = () => {
         setPaymentType(paymentType);
     };
 
+    const calculateTotalPrice = () => {
+        let totalPrice = 0;
+        basketItems?.forEach((item: any) => {
+            const price = parseFloat(item?.price_uah);
+            const quantity = selectedQuantities[item?.uid] || 1;
+            totalPrice += price * quantity;
+        });
+        return totalPrice;
+    };
+
     const slideContents = [
-        <div className={styled.basket} key="1">
-            {basketItems && basketItems.map((item: any) => (
-                <div className={styled.element} key={item.uid}>
-                    <img src={item?.images_links[0]} alt="images_links" />
-                    <div className={styled.infoBasket}>
-                        <p>{item?.article}</p>
-                        <h4>{item.title}</h4>
-                        <span>{item?.price_uah} грн.</span>
+        <div key="1">
+            <div className={styled.basket}>
+                {basketItems && basketItems.map((item: any) => (
+                    <div className={styled.element} key={item.uid}>
+                        <img src={item?.images_links[0]} alt="images_links" />
+                        <div className={styled.infoBasket}>
+                            <p>{item?.article}</p>
+                            <h4>{item.title}</h4>
+                            <span>{item?.price_uah} грн.</span>
+                        </div>
+                        <div>
+                            {item?.parameters.size && item.parameters.size.split(',').length > 1 ? (
+                                <Select
+                                    className={styled.select}
+                                    placeholder="Виберіть розмір"
+                                    value={selectedSizes[item.uid]}
+                                    onChange={(value) => setSelectedSizes({ ...selectedSizes, [item.uid]: value })}
+                                >
+                                    {item?.parameters.size.split(',').map((size: string, index: number) => (
+                                        <Option key={index} value={size.trim()}>
+                                            {size.trim()}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            ) : (
+                                item?.parameters.size
+                            )}
+                        </div>
+                        <InputNumber
+                            className={styled.textield}
+                            defaultValue={1} // Устанавливаем значение по умолчанию равное 1
+                            onChange={(value) => setSelectedQuantities({ ...selectedQuantities, [item?.uid]: value })}
+                        />
+                        <IoMdCloseCircleOutline className={styled.delete} size={20} onClick={() => handleRemoveItem(item?.uid)} />
                     </div>
-                    <div>
-                        {item?.parameters.size && item.parameters.size.split(',').length > 1 ? (
-                            <Select
-                                className={styled.select}
-                                placeholder="Виберіть розмір"
-                                value={selectedSizes[item.uid]}
-                                onChange={(value) => setSelectedSizes({ ...selectedSizes, [item.uid]: value })}
-                            >
-                                {item?.parameters.size.split(',').map((size: string, index: number) => (
-                                    <Option key={index} value={size.trim()}>
-                                        {size.trim()}
-                                    </Option>
-                                ))}
-                            </Select>
-                        ) : (
-                            item?.parameters.size
-                        )}
-                    </div>
-                    <InputNumber
-                        className={styled.textield}
-                        defaultValue={1} // Устанавливаем значение по умолчанию равное 1
-                        onChange={(value) => setSelectedQuantities({ ...selectedQuantities, [item?.uid]: value })}
-                    />
-                    <IoMdCloseCircleOutline className={styled.delete} size={20} onClick={() => handleRemoveItem(item?.uid)} />
-                </div>
-            ))}
+                ))}
+            </div>
+            <p className={styled.total}>Сума: <b>{calculateTotalPrice()}</b> грн.</p>
         </div>,
         <div key="2">
             <div className={styled.grid}>
@@ -190,7 +213,13 @@ export const Basket: FC = () => {
                 </div>
                 <div>
                     <label htmlFor="phone">Номер телефону *</label>
-                    <Input name='phone' id='phone' placeholder="Номер телефону..." value={phone} onChange={e => setPhone(e.target.value)} />
+                    <InputMask
+                        mask="+38 (999) 999-99-99"
+                        placeholder='+38 (999) 999-99-99'
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className={styled.phone}
+                    />
                 </div>
             </div>
             <div className={styled.buttonPayment}>
@@ -238,7 +267,7 @@ export const Basket: FC = () => {
                         <Button onClick={handleNext} disabled={currentSlide === slideContents.length - 1}>
                             {currentSlide === 1 ? "Придбати товар" : "Вперед"}
                         </Button>
-                    ): ''}
+                    ) : ''}
                 </div>
             </Modal>
         </>

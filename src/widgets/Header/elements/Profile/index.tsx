@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Input, Button, Form, notification, Space, Select } from "antd";
 import { useMutation } from "react-query";
 import { MdPersonalInjury } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import styled from "./s.module.scss";
 import { InfoCircleOutlined } from "@ant-design/icons";
+import InputMask from "react-input-mask";
+import { RiLogoutBoxRFill } from "react-icons/ri";
 
 const { Option } = Select;
 
@@ -42,10 +44,6 @@ export const Profile = () => {
       // Сохраняем access_token в сессионное хранилище под именем "token"
       sessionStorage.setItem("token", responseData.access_token);
 
-      notification.success({
-        message: "Успішно",
-        description: "Ви успішно увійшли в систему",
-      });
       setSignInVisible(false);
       const userRole = responseData.user.role;
       if (userRole !== "ROLE_ADMIN") {
@@ -54,10 +52,10 @@ export const Profile = () => {
           description: "Ви успішно увійшли в систему, будь ласка, перенаправляємо вас на сторінку каталогу",
         });
         setSignInVisible(false);
-        navigate('/catalog'); 
+        navigate('/catalog');
       } else {
         sessionStorage.setItem("token", responseData.access_token);
-      
+
         notification.success({
           message: "Успішно",
           description: "Ви успішно увійшли в систему",
@@ -129,15 +127,45 @@ export const Profile = () => {
     }
   };
 
+  const [token, setToken] = useState<string | null>(null);
+
+  const deleteToken = () => {
+    sessionStorage.removeItem("token");
+    setToken(null);
+  };
+
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+    console.log('delete')
+  }, [deleteToken, token]);
+  
+  const functIcons = (token: any) => {
+    if (token) {
+      return (
+        <RiLogoutBoxRFill
+          fill="rgb(116, 125, 142)"
+          size={20}
+          onClick={deleteToken}
+          className={styled.profile}
+        />
+      );
+    } else {
+      return (
+        <MdPersonalInjury
+          fill="rgb(116, 125, 142)"
+          size={20}
+          onClick={() => setSignInVisible(true)}
+          className={styled.profile}
+        />
+      );
+    }
+  };
   return (
     <>
-      <MdPersonalInjury
-        fill="rgb(116, 125, 142)"
-        size={20}
-        onClick={() => setSignInVisible(true)}
-        className={styled.profile}
-      />
-
+      {functIcons(token)}
       <Modal
         title="Увійти"
         visible={signInVisible}
@@ -227,12 +255,23 @@ export const Profile = () => {
           >
             <Input className={styled.textfield} placeholder="Email" />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="phone"
             label="Телефон"
             rules={[{ required: true, message: "Будь ласка, введіть телефон" }]}
           >
             <Input className={styled.textfield} placeholder="Телефон" />
+          </Form.Item> */}
+          <Form.Item
+            name="phone"
+            label="Телефон"
+            rules={[{ required: true, message: "Будь ласка, введіть телефон" }]}
+          >
+            <InputMask
+              mask="+38 (999) 999-99-99"
+              placeholder="Телефон"
+              className={styled.phone}
+            />
           </Form.Item>
           <div className={styled.grid}>
             <Form.Item

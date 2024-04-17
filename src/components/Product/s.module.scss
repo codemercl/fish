@@ -4,11 +4,12 @@
     border: 1px solid rgb(35, 63, 130);
     position: relative;
     margin: 20px 10px;
+    max-width: 222px;
 
     .head {
         display: flex;
         align-items: center;
-        padding: 16px;
+        padding: 8px;
 
         p {
             background-color: #feda03;
@@ -30,16 +31,26 @@
         }
     }
 
+    .stock {
+        padding: 8px 0;
+        span {
+            background-color: rgb(122, 185, 122);
+            color: #fff;
+            font-size: 13px;
+            padding: 4px;
+            font-weight: bold;
+            font-size: 10px;
+        }
+    }
+
     .images {
-        padding: 16px;
+        padding: 8px;
         border-bottom: 1px solid rgb(41, 62, 126);
 
-        height: 200px;
         img {
             object-fit: contain;
             max-width: 100%;
-            max-height: 150px;
-
+            height: 230px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,7 +60,7 @@
     }
 
     .body {
-        padding: 16px 16px;
+        padding: 8px;
 
         p {
             color: #299ed8;
@@ -72,6 +83,14 @@
             font-size: 26px;
             font-weight: 600;
             margin-top: 10px;
+        }
+
+        h3 {
+            color: grey;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            text-decoration: line-through;
         }
 
         .basket {
