@@ -28,7 +28,7 @@ export const Footer: FC = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch("-server-ba9b079f683d.herokuapp.com/v1/api/users/callback", {
+            const response = await fetch("https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/users/callback", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -78,8 +78,8 @@ export const Footer: FC = () => {
                         <h1>Про нас</h1>
                         <Link to="/about">Про нас</Link>
                         <Link to="/contacts">Контакты</Link>
-                        <Link to="/contacts">Гарантії</Link>
-                        <Link to="/contacts">Доставка</Link>
+                        <Link to="/guaratees">Гарантії</Link>
+                        <Link to="/delivery">Доставка</Link>
                     </li>
                     <li>
                         <h1>Контакти</h1>

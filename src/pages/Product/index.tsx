@@ -37,10 +37,11 @@ export const Product: FC = () => {
     enabled: !!productId,
   });
   const [mainImage, setMainImage] = useState<string | undefined>();
+  const [position, setPosition] = useState({ x: 0, y: 0 }); // Move this hook here
 
   useEffect(() => {
     setMainImage(data?.images_links[0])
-  }, [data])
+  }, [data]);
 
   const handleThumbnailClick = (image: string) => {
     setMainImage(image);
@@ -84,7 +85,6 @@ export const Product: FC = () => {
     });
   };
 
-
   const { id } = useParams<{ id?: string }>();
   useEffect(() => {
     if (id) {
@@ -113,13 +113,41 @@ export const Product: FC = () => {
     return <div>No product data available</div>;
   }
 
+  const handleMouseMove = (e: any) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    setPosition({
+      x: Math.min(Math.max(x, 0), 100),
+      y: Math.min(Math.max(y, 0), 100),
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 50, y: 50 });
+  };
+
   return (
     <div className={styled.wrap}>
       <Container>
         <div className={styled.content}>
           <div className={styled.image}>
             <div>
-              <img src={mainImage} alt="main" style={{ width: '100%', height: 'auto' }} />
+              <div
+                className={styled.zoomContainer}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                <img
+                  src={mainImage}
+                  className={styled.zoomImage}
+                  alt="main"
+                  style={{
+                    transformOrigin: `${position.x}% ${position.y}%`,
+                  }}
+                />
+              </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '10px' }}>
                 {data?.images_links.map((image, index) => (
                   <img

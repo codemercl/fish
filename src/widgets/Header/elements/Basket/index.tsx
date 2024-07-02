@@ -1,6 +1,6 @@
 import { FC, useState, useRef } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Modal, Carousel, Button, Input, message, InputNumber, Select, Badge, Result } from 'antd';
+import { Modal, Carousel, Button, Input, message, InputNumber, Select, Badge, Result, Tooltip } from 'antd';
 import { useMutation } from 'react-query';
 import styled from "./s.module.scss";
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -243,7 +243,9 @@ export const Basket: FC = () => {
         <>
             <div className={styled.basketIconWrapper}>
                 <Badge className={styled.basketIcon} count={basketItems ? basketItems.length : 0}>
-                    <FaBasketShopping onClick={() => setModalVisible(true)} fill="rgb(116, 125, 142)" size={20} />
+                    <Tooltip title="Кошик товарів">
+                        <FaBasketShopping onClick={() => setModalVisible(true)} fill="rgb(116, 125, 142)" size={20} />
+                    </Tooltip>
                 </Badge>
                 <div className={styled.wave}></div>
             </div>
@@ -260,6 +262,7 @@ export const Basket: FC = () => {
                     dots={false}
                     ref={carouselRef}
                     beforeChange={(_, to) => setCurrentSlide(to)}
+                    swipe={false}
                 >
                     {slideContents}
                 </Carousel>

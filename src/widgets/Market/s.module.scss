@@ -33,3 +33,14 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 734px) {
+    .wrap {
+        flex-direction: column;
+
+        .table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

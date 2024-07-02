@@ -100,3 +100,15 @@
         }
     }
 }
+
+@media (max-width: 734px) {
+    .content {
+        display: grid;
+        grid-template-columns: 1fr;
+
+        .side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

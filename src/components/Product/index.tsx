@@ -53,7 +53,7 @@ export const Product: FC<Props> = ({ data }) => {
             <div className={styled.body}>
                 <p>{data.article}</p>
                 <div className={styled.stock}>
-                    <span>{data.in_stock && 'У наявності'}</span>
+                    <span>{data.in_stock ? <div>наявності</div> : <p>Нема в наявності</p>}</span>
                 </div>
                 <Link to={`/product/${data?.id}`}>{data.title}</Link>
                 {data.price_old && <h3>{data.price_old} грн.</h3>}

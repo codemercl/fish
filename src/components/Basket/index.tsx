@@ -258,6 +258,7 @@ export const Basket: FC = () => {
                     dots={false}
                     ref={carouselRef}
                     beforeChange={(_, to) => setCurrentSlide(to)}
+                    swipe={false}
                 >
                     {slideContents}
                 </Carousel>

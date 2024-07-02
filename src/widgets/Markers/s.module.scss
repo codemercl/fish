@@ -1,9 +1,33 @@
 .head {
     display: inline-block;
-    padding: 2px 25px;
-    border-radius: 4px;
-    font-size: 18px;
-    color: #000;
-    background-color: #feda03;
-    margin: 20px 0;
+
+    span {
+        background-color: #feda03;
+        display: inline-block;
+        margin: 20px 0;
+        font-size: 18px;
+        padding: 2px 25px;
+        border-radius: 4px;
+        color: #000;
+    }
+}
+
+@media (max-width: 734px) {
+
+    .head {
+        display: flex;
+        justify-content: center;
+        width: 280px;
+    }
+
+    .content {
+        padding: 0 20px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .list {
+        width: 300px;
+    }
 }

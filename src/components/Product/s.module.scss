@@ -33,13 +33,28 @@
 
     .stock {
         padding: 8px 0;
+
         span {
-            background-color: rgb(122, 185, 122);
-            color: #fff;
-            font-size: 13px;
-            padding: 4px;
-            font-weight: bold;
-            font-size: 10px;
+
+            p {
+                display: inline;
+                background-color: rgb(188, 37, 26);
+                color: #fff;
+                font-size: 13px;
+                padding: 4px;
+                font-weight: bold;
+                font-size: 10px;
+            }
+
+            div {
+                display: inline;
+                background-color: rgb(122, 185, 122);
+                color: #fff;
+                font-size: 13px;
+                padding: 4px;
+                font-weight: bold;
+                font-size: 10px;
+            }
         }
     }
 
@@ -101,4 +116,10 @@
         }
     }
 
+}
+
+@media (max-width: 734px) {
+    .wrap {
+        max-width: 300px;
+    }
 }

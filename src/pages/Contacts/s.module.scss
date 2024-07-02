@@ -66,3 +66,13 @@
     padding: 4px 11px;
     border-radius: 6px;
 }
+
+@media (max-width: 734px) {
+    .wrap {
+        padding: 20px 50px;
+
+        .column {
+            grid-template-columns: 1fr;
+        }
+    }
+}

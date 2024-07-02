@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal, Input, Button, Form, notification, Space, Select } from "antd";
+import { Modal, Input, Button, Form, notification, Space, Select, Tooltip } from "antd";
 import { useMutation } from "react-query";
 import { MdPersonalInjury } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -141,25 +141,30 @@ export const Profile = () => {
     }
     console.log('delete')
   }, [deleteToken, token]);
-  
+
   const functIcons = (token: any) => {
     if (token) {
       return (
-        <RiLogoutBoxRFill
-          fill="rgb(116, 125, 142)"
-          size={20}
-          onClick={deleteToken}
-          className={styled.profile}
-        />
+        <Tooltip title="Вийти з профілю">
+          <RiLogoutBoxRFill
+            fill="rgb(116, 125, 142)"
+            size={20}
+            onClick={deleteToken}
+            className={styled.profile}
+          />
+        </Tooltip>
+
       );
     } else {
       return (
-        <MdPersonalInjury
-          fill="rgb(116, 125, 142)"
-          size={20}
-          onClick={() => setSignInVisible(true)}
-          className={styled.profile}
-        />
+        <Tooltip title="Увійти у профіль">
+          <MdPersonalInjury
+            fill="rgb(116, 125, 142)"
+            size={20}
+            onClick={() => setSignInVisible(true)}
+            className={styled.profile}
+          />
+        </Tooltip>
       );
     }
   };

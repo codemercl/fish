@@ -13,7 +13,7 @@ export const Contacts: FC = () => {
   const mutation = useMutation(async (data: any) => {
     try {
       const response = await fetch(
-        "https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/users/feedback",
+        "https://optm-client-server-ba9b079f683d.herokuapp.com/v1/api/users/callback",
         {
           method: "POST",
           body: JSON.stringify(data),

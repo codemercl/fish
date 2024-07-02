@@ -2,7 +2,7 @@
     li {
         display: flex;
         align-items: center;
-        
+
         &:not(:first-child) {
             margin-top: 8px;
         }
@@ -15,5 +15,11 @@
         color: #747d8e;
         font-weight: 600;
         margin-left: 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .wrap {
+        display: none;
     }
 }

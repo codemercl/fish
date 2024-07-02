@@ -45,7 +45,32 @@ export const Sales: React.FC = () => {
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 3000
+        autoplaySpeed: 3000,
+        responsive: [
+            {
+                breakpoint: 1024, // точка остановки для экранов до 1024px
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 768, // точка остановки для экранов до 768px
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480, // точка остановки для экранов до 480px
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     if (isLoading) {
@@ -64,7 +89,7 @@ export const Sales: React.FC = () => {
 
     return (
         <div>
-            <h1 className={styled.head}>Знижка</h1>
+            <h1 className={styled.head}><span>Знижка</span></h1>
             <div className={styled.content}>
                 {data && data?.length >= 4 ? (
                     <div className={styled.list}>
